@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+:root {
+  --bg-main: #F6F5FA;
+  --panel-bg: #FFFFFF;
+  --panel-alt-bg: #D8DFE9;
+  --border-color: #C3CCDA;
+  --text-main: #212121;
+  --text-muted: #5C6269;
+  
+  --status-normal: #CFDECA;
+  --status-warning: #EFF0A3;
+  --status-fault: #F2B8B5;
+  --status-idle: #D5D7DA;
+  
+  --accent-primary: #212121;
+}
+
+* {
+  font-family: "Times New Roman", Times, serif !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: "Times New Roman", Times, serif !important;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Custom scrollbars matching flat industrial theme */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F6F5FA;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C3CCDA;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #212121;
+}
