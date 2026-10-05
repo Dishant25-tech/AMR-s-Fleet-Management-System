@@ -8,7 +8,7 @@ export const FleetUtilizationDonut: React.FC = () => {
   const moving = amrs.filter((a) => a.statusState === "Moving").length;
   const taskExec = amrs.filter((a) => a.statusState === "Task Execution").length;
   const charging = amrs.filter((a) => a.statusState === "Charging").length;
-  const yielding = amrs.filter((a) => a.statusState === "Yielding" || a.statusState === "Blocked").length;
+  const yielding = amrs.filter((a) => a.statusState === "Yielding" || (a.haltReason && a.haltReason !== null)).length;
   const idle = amrs.filter((a) => a.statusState === "Idle").length;
 
   const total = amrs.length || 1;

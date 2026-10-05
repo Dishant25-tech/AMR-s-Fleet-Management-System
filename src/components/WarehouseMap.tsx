@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Stage, Layer, Rect, Text, Line, Group, Circle } from "react-konva";
 import { useFleetStore } from "../store/useFleetStore";
-import { RACKS, CHARGING_STATION } from "../simulation/mockEngine";
+import { RACKS } from "../simulation/mockEngine";
 import { Cpu, Play, RotateCcw } from "lucide-react";
 
 export const WarehouseMap: React.FC = () => {

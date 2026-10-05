@@ -155,7 +155,7 @@ function buildOperationalRoute(start: Position, goal: Position, blockedNodeId?: 
   return route.length > 0 ? route : [start, goal];
 }
 
-function getClearanceHoldPosition(amrId: string, conflictPos: Position, fallbackIdx: number): Position {
+export function getClearanceHoldPosition(amrId: string, conflictPos: Position, fallbackIdx: number): Position {
   const match = amrId.match(/\d+/);
   const num = match ? parseInt(match[0], 10) : fallbackIdx + 1;
   const holdX = num % 2 === 0 ? 520 : 30;
@@ -429,7 +429,6 @@ class MockSimulationEngine {
   private stepCount = 0;
   private haltStartTimes: Record<string, number> = {};
   private lastReplanTimes: Record<string, number> = {};
-  private lastMovedPositions: Record<string, { pos: Position; time: number }> = {};
   private lastRerouteEvents: Record<string, { nodeId: string; time: number; pos: Position }> = {};
 
   constructor() {
@@ -453,7 +452,6 @@ class MockSimulationEngine {
     this.stepCount = 0;
     this.haltStartTimes = {};
     this.lastReplanTimes = {};
-    this.lastMovedPositions = {};
     this.lastRerouteEvents = {};
     useFleetStore.getState().updateFleetState({
       amrs: this.currentAMRs,
@@ -666,9 +664,9 @@ class MockSimulationEngine {
       const generatedEvents: FleetEvent[] = [];
       const generatedPackets: PeerPacket[] = [];
 
-      // --- STEP 1: PRIORITY AGING & EFFECTIVE PRIORITY SCORE RECOMPUTATION ---
+// STEP 1: PRIORITY AGING & EFFECTIVE PRIORITY SCORE RECOMPUTATION ---
       for (const amr of this.currentAMRs) {
-        const isHalted = amr.haltReason !== null || amr.statusState === "Yielding" || amr.statusState === "Blocked";
+        const isHalted = (amr.haltReason && amr.haltReason !== null) || amr.statusState === "Yielding";
         if (isHalted) {
           amr.priorityAge = parseFloat((amr.priorityAge + dt).toFixed(1));
         } else if (amr.statusState === "Moving" || amr.statusState === "Charging" || amr.statusState === "Task Execution" || amr.statusState === "Idle") {
